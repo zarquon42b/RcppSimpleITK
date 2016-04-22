@@ -15,9 +15,6 @@ export LAPACK_LIBS
 export R_INCLUDE_DIR
 RSITKLIB=$(Rscript -e 'cat(paste0( system.file("libs", package="SimpleITK"),"/SimpleITK.so"))')
 export RSITKLIB
-sitklib1=$(find /home/schlager/GIT/DEV/SimpleITK/build/lib/ -name "*.a")
-echo "PKG_LIBS=\$(LAPACK_LIBS) \$(BLAS_LIBS) \$(FLIBS)" $sitklib $sitklib1 > src/Makevars
-echo PKG_CPPFLAGS=-I/home/schlager/GIT/DEV/SimpleITK-build/include/SimpleITK-0.10/ >> src/Makevars
 RCPP_DIR=$(Rscript -e "cat(system.file(package='Rcpp'))")
 export RCPP_DIR
 
