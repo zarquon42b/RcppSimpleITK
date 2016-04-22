@@ -6,7 +6,7 @@ At the moment only Linux is supported, also OSX should work as well.
 
 * **Linux:** Build SimpleITK (including R-wrapping) and install the SimpleITK R-package (as described [here](http://www.itk.org/Wiki/SimpleITK/GettingStarted#R_installation), CMake and R build environment.
 
-If you build SimpleITK as root with `CMAKE_INSTALL_PREFIX=/usr/local`, you can skip passing the args below.
+If you build SimpleITK as root with `CMAKE_INSTALL_PREFIX=/usr/local`, you can build the package globally and skip passing the args below.
 
 
 #### Install *RcppSimpleITK* ####
