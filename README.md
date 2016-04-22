@@ -13,6 +13,8 @@ Run the following command in R:
 	require(devtools)
 	install_github("zarquon42b/RcppSimpleITK", args="--configure-args=-DSimpleITK_DIR=path_to_your_SimpleITK_install_dir")
 	
-	## in my case the argument would be
+
+in my case the argument would be
+	
 	install_github("zarquon42b/RcppSimpleITK",args="--configure-args=-DSimpleITK_DIR=/home/schlager/GIT/DEV/SimpleITK-build/SimpleITK-build/")
 	
