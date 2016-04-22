@@ -11,7 +11,7 @@ If you build SimpleITK as root with `CMAKE_INSTALL_PREFIX=/usr/local`, you can s
 
 #### Install *RcppSimpleITK* ####
 
-##### via devtools from within R ##### 
+##### via devtools from within R
 
 Run the following command in R:
         
