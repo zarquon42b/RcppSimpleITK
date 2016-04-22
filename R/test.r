@@ -2,7 +2,7 @@
 #'
 #' this a first test whether it is possible to call SimpleITK via Rcpp. It simply shows how to change the origin of a sitk::Image using SimpleITK's C++ interface.
 #' @param image image of class
-#' @param vector of length
+#' @param origin vector of length image$GetDimension()
 #' @return returns the image dimension
 #' @examples
 #' require(SimpleITK)
