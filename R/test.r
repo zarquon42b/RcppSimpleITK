@@ -1,18 +1,27 @@
 #' this a first test whether it is possible to call SimpleITK via Rcpp
 #'
-#' this a first test whether it is possible to call SimpleITK via Rcpp
+#' this a first test whether it is possible to call SimpleITK via Rcpp. It simply shows how to change the origin of a sitk::Image using SimpleITK's C++ interface.
 #' @param image image of class
+#' @param vector of length
 #' @return returns the image dimension
 #' @examples
 #' require(SimpleITK)
 #' img <- Image(10,10,10,"sitkInt8")
-#' print(GetImageDimension(img))
+#' img <-test(img,1:3)
+#' print(img$GetOrigin())
 #' @useDynLib RcppSimpleITK
 #' @importFrom Rcpp evalCpp
-#' @importFrom SimpleITK Image
+#' @import SimpleITK
 #' @export 
-GetImageDimension <- function(image) {
+test <- function(image,origin=NULL) {
     if (!inherits(image,"_p_itk__simple__Image"))
         stop("image must be a SimpleITK image")
-    .Call("Image_GetDimension",image@ref)
+    imdim <- image$GetDimension()
+    if (is.null(origin))
+        origin <- rep(0,imdim)
+    if (length(origin) != imdim)
+        stop(paste("origin must be of length",imdim))
+    ref <- .Call("mytest",image@ref,origin)
+    image@ref <- ref
+    return(image)
 }

@@ -1,3 +1,25 @@
 #! /bin/bash
-sitklib=$(Rscript -e 'cat(paste0( system.file("libs", package="SimpleITK"),"/SimpleITK.so"))')
-echo "PKG_LIBS=\$(LAPACK_LIBS) \$(BLAS_LIBS) \$(FLIBS)" $sitklib > src/Makevars
+export R_HOME
+CXX=$(R CMD config CXX)
+#CXXFLAGS="$(R CMD config CXX1XSTD) $(R CMD config CXX1XFLAGS)"
+CXXFLAGS="$(R CMD config CXX1XFLAGS)"
+# $(R CMD config DYLIB_LDFLAGS)"
+CPPFLAGS=$(R CMD config CPPFLAGS)
+BLAS_LIBS=$(R CMD config BLAS_LIBS)
+LAPACK_LIBS=$(R CMD config LAPACK_LIBS)
+export CXX
+export CXXFLAGS
+export CPPFLAGS
+export BLAS_LIBS
+export LAPACK_LIBS
+export R_INCLUDE_DIR
+RSITKLIB=$(Rscript -e 'cat(paste0( system.file("libs", package="SimpleITK"),"/SimpleITK.so"))')
+export RSITKLIB
+sitklib1=$(find /home/schlager/GIT/DEV/SimpleITK/build/lib/ -name "*.a")
+echo "PKG_LIBS=\$(LAPACK_LIBS) \$(BLAS_LIBS) \$(FLIBS)" $sitklib $sitklib1 > src/Makevars
+echo PKG_CPPFLAGS=-I/home/schlager/GIT/DEV/SimpleITK-build/include/SimpleITK-0.10/ >> src/Makevars
+RCPP_DIR=$(Rscript -e "cat(system.file(package='Rcpp'))")
+export RCPP_DIR
+
+cd src
+cmake . $@
