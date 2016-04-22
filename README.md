@@ -11,5 +11,8 @@ At the moment only Linux is supported, also OSX should work as well.
 Run the following command in R:
         
 	require(devtools)
-	install_github("zarquon42b/RcppSimpleITK", local=FALSE,configure.args="-DSimpleITK_DIR=path-to-your-simpleitk-installation")
+	install_github("zarquon42b/RcppSimpleITK", args="--configure-args=-DSimpleITK_DIR=path_to_your_SimpleITK_install_dir")
+	
+	## in my case the argument would be
+	install_github("zarquon42b/RcppSimpleITK",args="--configure-args=-DSimpleITK_DIR=/home/schlager/GIT/DEV/SimpleITK-build/SimpleITK-build/")
 	
