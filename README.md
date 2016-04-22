@@ -7,14 +7,23 @@ At the moment only Linux is supported, also OSX should work as well.
 * **Linux:** Build SimpleITK (including R-wrapping) and install the SimpleITK R-package (as described [here](http://www.itk.org/Wiki/SimpleITK/GettingStarted#R_installation), CMake and R build environment.
 
 
-##### Install *RcppSimpleITK* #####
+#### Install *RcppSimpleITK* ####
+
+##### via devtools from within R ##### 
+
 Run the following command in R:
         
 	require(devtools)
 	install_github("zarquon42b/RcppSimpleITK", args="--configure-args=-DSimpleITK_DIR=path_to_your_SimpleITK_install_dir")
 	
 
-in my case the argument would be
+On my machine, the argument would be
 	
 	install_github("zarquon42b/RcppSimpleITK",args="--configure-args=-DSimpleITK_DIR=/home/schlager/GIT/DEV/SimpleITK-build/SimpleITK-build/")
+	
+##### via command line #####
+Get the source, either by cloning this repo or downloading the tarball and then issueing in a terminal
+
+	R CMD INSTALL --configure-args="DSimpleITK_DIR=path_to_your_SimpleITK_install_dir" RcppSimpleITK[*.tar.gz]
+
 	
