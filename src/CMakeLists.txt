@@ -31,7 +31,7 @@ message("${RSITKLIB}")
 ## look for statismo and ask statismos cmake file about hdf5 whereabouts
 FIND_PACKAGE(SimpleITK REQUIRED)
 include(${SimpleITK_USE_FILE})
-include_directories(BEFORE ${R_INCLUDE_DIR} ${RCPP_DIR})
+include_directories(BEFORE ${R_INCLUDE_DIR} ${RCPP_DIR} "../inst/include")
 add_library(RcppSimpleITK SHARED test.cpp)
 target_link_libraries(RcppSimpleITK ${RSITKLIB} ${SimpleITK_LIBRARIES} R)
 if(APPLE)
