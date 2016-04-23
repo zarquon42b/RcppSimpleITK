@@ -1,11 +1,16 @@
 #include "RcppSimpleITK.h"
 
-RcppExport  SEXP fillVectorImage(SEXP img, SEXP indices_, SEXP vectors_) {
+RcppExport  SEXP fillVectorImage(SEXP img, SEXP indices_, SEXP vectors_, SEXP usefloat_) {
   try {
     sitk::Image * image = convertSwigSimpleITKImage(img);
-    *image = sitk::Cast(*image, sitk::sitkVectorFloat32);
+    
     IntegerMatrix indices(indices_);
     NumericMatrix vectors(vectors_);
+    bool usefloat = as<bool>(usefloat_);
+    if (usefloat)
+      *image = sitk::Cast(*image, sitk::sitkVectorFloat32);
+    else
+      *image = sitk::Cast(*image, sitk::sitkVectorFloat64);
     if (indices.nrow() != vectors.nrow())
       ::Rf_error("indices and values must have the same amount of rows");
 
@@ -15,8 +20,13 @@ RcppExport  SEXP fillVectorImage(SEXP img, SEXP indices_, SEXP vectors_) {
       IntegerVector tmpind = indices(i,_);
       std::vector<uint32_t> tmpindi = as<std::vector<uint32_t> >(tmpind);
       NumericVector tmpvec = vectors(i,_);
-      std::vector<float> tmpvecf = as<std::vector<float> >(tmpvec);
-      image->SetPixelAsVectorFloat32(tmpindi,tmpvecf);
+      if (usefloat) {
+	std::vector<float> tmpvecf = as<std::vector<float> >(tmpvec);
+	image->SetPixelAsVectorFloat32(tmpindi,tmpvecf);
+      }	else {
+	std::vector<double> tmpvecf = as<std::vector<double> >(tmpvec);
+	image->SetPixelAsVectorFloat64(tmpindi,tmpvecf);
+      }
     }
       
     return img;

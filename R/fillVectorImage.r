@@ -1,9 +1,11 @@
 #' this a first test whether it is possible to call SimpleITK via Rcpp
 #'
 #' this a first test whether it is possible to call SimpleITK via Rcpp. It simply shows how to change the origin of a sitk::Image using SimpleITK's C++ interface.
-#' @param image image of class
-#' @param vector of length
-#' @return returns the image dimension
+#' @param image SimpleITK image
+#' @param indices integer matrix with rows containing (1-based) indices
+#' @param values numeric matrix with rows containing vectors 
+#' @param float if TRUE, vectors will be coerced to float (instead of double)
+#' @return returns the updated image
 #' @examples
 #' require(SimpleITK)
 #' img <- Image(10,10,10,"sitkVectorFloat32")
@@ -16,7 +18,7 @@
 #' @importFrom Rcpp evalCpp
 #' @import SimpleITK
 #' @export 
-fillVectorImage <- function(image,indices,values) {
+fillVectorImage <- function(image,indices,values,float=FALSE) {
     if (!inherits(image,"_p_itk__simple__Image"))
         stop("image must be a SimpleITK image")
     imdim <- image$GetDimension()
@@ -27,7 +29,7 @@ fillVectorImage <- function(image,indices,values) {
     if (sum(indrange+1 > imgsize))
         stop("indices out of range")
     
-    ref <- .Call("fillVectorImage",image@ref,indices,values)
+    ref <- .Call("fillVectorImage",image@ref,indices,values,float)
     image@ref <- ref
     return(image)
 }
