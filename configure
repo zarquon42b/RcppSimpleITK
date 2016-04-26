@@ -13,7 +13,7 @@ export CPPFLAGS
 export BLAS_LIBS
 export LAPACK_LIBS
 export R_INCLUDE_DIR
-RSITKLIB=$(Rscript -e 'cat(paste0( system.file("libs", package="SimpleITK"),"/SimpleITK.so"))')
+RSITKLIB=$(Rscript -e 'library(SimpleITK); cat(system.file("libs", package="SimpleITK", mustWork=TRUE))')
 export RSITKLIB
 RCPP_DIR=$(Rscript -e "cat(system.file(package='Rcpp'))")
 export RCPP_DIR
