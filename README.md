@@ -26,6 +26,6 @@ On my machine, the argument would be
 ##### via command line #####
 Get the source, either by cloning this repo or downloading the tarball and then issueing in a terminal
 
-	R CMD INSTALL --configure-args="DSimpleITK_DIR=path_to_your_SimpleITK_install_dir" RcppSimpleITK[*.tar.gz]
+	R CMD INSTALL --configure-args="-DSimpleITK_DIR=path_to_your_SimpleITK_install_dir" RcppSimpleITK[*.tar.gz]
 
 	
